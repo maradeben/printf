@@ -10,7 +10,7 @@ int print_char(va_list arg_list)
 {
 	int next = va_arg(arg_list, int);
 
-	_putchar(next + '0');
+	_putchar(next);
 
 	return (1);
 }
@@ -44,15 +44,16 @@ int print_string(va_list arg_list)
  */
 int print_decimal(va_list arg_list)
 {
-	double n;
-	int intpart, length;
+	int n;
+	int length;
 
-	n = va_arg(arg_list, double);
-	intpart = (int)n;
+	n = va_arg(arg_list, int);
 
-	/* print the integer part and get length */
-	print_intnum(intpart);
-	length = num_length(intpart);
+	if (n < 0)
+		n *= -1;
+
+	print_intnum(n);
+	length = num_length(n);
 
 	return (length);
 }

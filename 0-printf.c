@@ -30,7 +30,7 @@ int _printf(const char *format, ...)
 				if (format[i + 1] == *(printers[j].c))
 					length += printers[j].printer(args);
 			}
-		i++; /* skip the next character, format[i + 1] */
+			i += 2; /* skip the next character, format[i + 1] */
 		}
 		else if (format[i] == '\\')
 		{
@@ -39,7 +39,7 @@ int _printf(const char *format, ...)
 				if (format[i + 1] == escape[j])
 					_putchar(escape[j]);
 			}
-			i++; /* skip the next character */
+			i += 1; /* skip the next character */
 			length += 1;
 		}
 		_putchar(format[i]);
