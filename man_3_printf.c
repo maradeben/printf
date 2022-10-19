@@ -66,4 +66,4 @@ _printf("%s, %s %d, %d\\n", weekday, month, day, year);
 .SH BUGS
 No known bugs.
 .SH AUTHOR
-Mayowa Tomsori, Jane Doe
+Mayowa Tomsori, EBENEZER MARADESA
