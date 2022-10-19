@@ -1,50 +1,82 @@
-#include <stdlib.h>
 #include "main.h"
-#include <stdarg.h>
+#include <stdlib.h>
 
 /**
- * _printf - printf analog
- * @format: the string to format
- * Return: the length of the string printed, i.e. number of characters
+ * check_for_specifiers - checks if there is a valid format specifier
+ * @format: possible format specifier
+ *
+ * Return: pointer to valid function or NULL
  */
+static int (*check_for_specifiers(const char *format))(va_list)
+{
+	unsigned int i;
+	print_t p[] = {
+		{"c", print_c},
+		{"s", print_s},
+		{"i", print_i},
+		{"d", print_d},
+		{"u", print_u},
+		{"b", print_b},
+		{"o", print_o},
+		{"x", print_x},
+		{"X", print_X},
+		{"p", print_p},
+		{"S", print_S},
+		{"r", print_r},
+		{"R", print_R},
+		{NULL, NULL}
+	};
 
+	for (i = 0; p[i].t != NULL; i++)
+	{
+		if (*(p[i].t) == *format)
+		{
+			break;
+		}
+	}
+	return (p[i].f);
+}
+
+/**
+ * _printf - prints anything
+ * @format: list of argument types passed to the function
+ *
+ * Return: number of characters printed
+ */
 int _printf(const char *format, ...)
 {
-	va_list args; /* the list of optional arguments */
-	int i, j, length = 0; /* total length to return */
-	char escape[] = {'\"', '\'', '\\'};
+	unsigned int i = 0, count = 0;
+	va_list valist;
+	int (*f)(va_list);
 
-	t_p printers[] = {
-		{"c", print_char},
-		{"i", print_int},
-		{"d", print_decimal},
-		{"s", print_string}
-	};
-	va_start(args, format);
-	for (i = 0; format[i] != '\0'; i++)
+	if (format == NULL)
+		return (-1);
+	va_start(valist, format);
+	while (format[i])
 	{
-		if (format[i] == '%')
+		for (; format[i] != '%' && format[i]; i++)
 		{
-			for (j = 0; j < 4; j++)
-			{
-				if (format[i + 1] == *(printers[j].c))
-					length += printers[j].printer(args);
-			}
-			i += 2; /* skip the next character, format[i + 1] */
+			_putchar(format[i]);
+			count++;
 		}
-		else if (format[i] == '\\')
+		if (!format[i])
+			return (count);
+		f = check_for_specifiers(&format[i + 1]);
+		if (f != NULL)
 		{
-			for (j = 0; j < 3; j++)
-			{
-				if (format[i + 1] == escape[j])
-					_putchar(escape[j]);
-			}
-			i += 1; /* skip the next character */
-			length += 1;
+			count += f(valist);
+			i += 2;
+			continue;
 		}
+		if (!format[i + 1])
+			return (-1);
 		_putchar(format[i]);
-		length += 1;
+		count++;
+		if (format[i + 1] == '%')
+			i += 2;
+		else
+			i++;
 	}
-	va_end(args);
-	return (length);
+	va_end(valist);
+	return (count);
 }
