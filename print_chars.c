@@ -28,7 +28,7 @@ int print_s(va_list s)
 
 	if (str == NULL)
 		str = "(null)";
-	for (count = 0; str[count]; count+
+	for (count = 0; str[count]; count++)
 	{
 		_putchar(str[count]);
 	}
@@ -39,7 +39,7 @@ int print_s(va_list s)
  * hex_print - prints a char's ascii value in uppercase hex
  * @c: char to print
  *
- * Return: number of chars printed (always 
+ * Return: number of chars printed (always 2)
  */
 static int hex_print(char c)
 {
@@ -60,7 +60,7 @@ static int hex_print(char c)
 }
 
 /**
- * print_S - prints a string and nonprintable character ascii valu
+ * print_S - prints a string and nonprintable character ascii values
  * @S: string to print
  *
  * Return: number of chars printed
