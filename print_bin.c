@@ -9,8 +9,19 @@ int print_bin(va_list arg_list)
 {
 	int dec = va_arg(arg_list, int);
 	int i = 0, length = 0, bin;
-	int result[300];
+	int result[3000];
 
+	if (dec == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
+	if (dec < 0)
+	{
+		dec *= -1;
+		_putchar('-');
+		length += 1;
+	}
 
 	while (dec > 0)
 	{
