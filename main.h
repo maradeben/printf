@@ -3,10 +3,13 @@
 #include <unistd.h>
 #include <stdarg.h>
 
+int (*check_format(const char *format))(va_list);
 int print_char(va_list arg_list);
 int print_int(va_list arg_list);
 int print_decimal(va_list arg_list);
 int print_string(va_list arg_list);
+int print_pct(va_list arg_list);
+
 int _printf(const char * const format, ...);
 
 /**

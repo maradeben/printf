@@ -11,7 +11,7 @@ int print_string(va_list arg_list)
 	int i = 0;
 
 	if (s == NULL)
-		s = "(nil)";
+		s = "(null)";
 
 	while (s[i] != 0)
 	{

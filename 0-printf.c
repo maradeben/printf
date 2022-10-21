@@ -11,25 +11,17 @@
 int _printf(const char *format, ...)
 {
 	va_list args; /* the list of optional arguments */
+	int (*f)(va_list); /* function pointer */ 
 	int i, j, length = 0; /* total length to return */
 	char escape[] = {'\"', '\'', '\\'};
 
-	t_p printers[] = {
-		{"c", print_char},
-		{"i", print_int},
-		{"d", print_decimal},
-		{"s", print_string}
-	};
 	va_start(args, format);
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%')
 		{
-			for (j = 0; j < 4; j++)
-			{
-				if (format[i + 1] == *(printers[j].c))
-					length += printers[j].printer(args);
-			}
+			f = check_format(&format[i + 1]);
+			length += f(args);
 			i += 2; /* skip the next character, format[i + 1] */
 		}
 		else if (format[i] == '\\')
@@ -47,4 +39,30 @@ int _printf(const char *format, ...)
 	}
 	va_end(args);
 	return (length);
+}
+
+/**
+ * check_format - get format specifier
+ * @c: char representing the format
+ * Return: function to print specified format
+ */
+int (*check_format(const char *c))(va_list)
+{
+	int i;
+	t_p printers[] = {
+			{"c", print_char},
+			{"i", print_int},
+			{"d", print_decimal},
+			{"s", print_string},
+			{"%", print_pct},
+			{NULL, NULL}
+		};
+
+	for (i = 0; i < 5; i++)
+	{
+		if (*c == *(printers[i].c))
+			return (printers[i].printer);
+	}
+
+	return (NULL);
 }
