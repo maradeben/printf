@@ -60,6 +60,7 @@ int (*check_format(const char *c))(va_list)
 			{"i", print_int},
 			{"d", print_decimal},
 			{"s", print_string},
+			{"b", print_bin},
 			{"%", print_pct},
 			{NULL, NULL}
 		};

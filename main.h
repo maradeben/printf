@@ -11,6 +11,7 @@ int print_int(va_list arg_list);
 int print_decimal(va_list arg_list);
 int print_string(va_list arg_list);
 int print_pct(va_list arg_list);
+int print_bin(va_list arg_list);
 
 /**
  * struct type_printers - map format and print function

@@ -2,11 +2,11 @@
 
 /**
  * print_pct - print the character "%"
- * @args: argument list
+ * @arg_list: argument list
  * Return: the character to print
 */
-int print_pct(va_list args)
+int print_pct(va_list arg_list)
 {
-	(void)args;
+	(void)arg_list;
 	return (_putchar('%'));
 }
