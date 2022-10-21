@@ -23,7 +23,13 @@ int num_length(int n)
 {
 	int l = 0;
 
-	while (n > 0)
+    if (n < 0)
+    {
+        n *= -1;
+        l += 1;
+    }
+        
+    while (n > 0)
 	{
 		l += 1;
 		n = n / 10;
