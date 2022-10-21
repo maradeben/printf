@@ -11,7 +11,7 @@
 int _printf(const char *format, ...)
 {
 	va_list args; /* the list of optional arguments */
-	int (*f)(va_list); /* function pointer */ 
+	int (*f)(va_list); /* function pointer */
 	int i, j, length = 0; /* total length to return */
 	char escape[] = {'\"', '\'', '\\'};
 

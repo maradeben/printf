@@ -13,7 +13,7 @@ int print_string(va_list arg_list);
 int print_pct(va_list arg_list);
 
 /**
- * struct type_print - map format and print function
+ * struct type_printers - map format and print function
  * @c: char representing the format
  * @printer: the print function
  */
