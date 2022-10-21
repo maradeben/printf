@@ -15,8 +15,11 @@ int _printf(const char *format, ...)
 	int i, length = 0; /* total length to return */
 
 	va_start(args, format);
-	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
-		return (0);
+
+	if (format == NULL)
+		return (-1);
+	if (format[0] == '%' && format[1] == '\0')
+		return (-1);
 
 	for (i = 0; format[i] != '\0'; i++)
 	{
@@ -31,7 +34,7 @@ int _printf(const char *format, ...)
 			else
 			{
 				_putchar(format[i]);
-				length +=1;
+				length += 1;
 			}
 		}
 		else
