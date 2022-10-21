@@ -12,8 +12,8 @@ int _printf(const char *format, ...)
 {
 	va_list args; /* the list of optional arguments */
 	int (*f)(va_list); /* function pointer */
-	int i, j, length = 0; /* total length to return */
-	char escape[] = {'\"', '\'', '\\'};
+	int i, length = 0; /* total length to return */
+	/* char escape[] = {'\"', '\'', '\\'}; */
 
 	va_start(args, format);
 	for (i = 0; format[i] != '\0'; i++)
@@ -22,20 +22,13 @@ int _printf(const char *format, ...)
 		{
 			f = check_format(&format[i + 1]);
 			length += f(args);
-			i += 2; /* skip the next character, format[i + 1] */
+			i += 1; /* skip the next character, format[i + 1] */
 		}
-		else if (format[i] == '\\')
+		else
 		{
-			for (j = 0; j < 3; j++)
-			{
-				if (format[i + 1] == escape[j])
-					_putchar(escape[j]);
-			}
-			i += 1; /* skip the next character */
+			_putchar(format[i]);
 			length += 1;
 		}
-		_putchar(format[i]);
-		length += 1;
 	}
 	va_end(args);
 	return (length);
