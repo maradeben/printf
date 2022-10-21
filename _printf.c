@@ -13,16 +13,26 @@ int _printf(const char *format, ...)
 	va_list args; /* the list of optional arguments */
 	int (*f)(va_list); /* function pointer */
 	int i, length = 0; /* total length to return */
-	/* char escape[] = {'\"', '\'', '\\'}; */
 
 	va_start(args, format);
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (0);
+
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%')
 		{
 			f = check_format(&format[i + 1]);
-			length += f(args);
-			i += 1; /* skip the next character, format[i + 1] */
+			if (f)
+			{
+				length += f(args);
+				i += 1; /* skip the next character, format[i + 1] */
+			}
+			else
+			{
+				_putchar(format[i]);
+				length +=1;
+			}
 		}
 		else
 		{
